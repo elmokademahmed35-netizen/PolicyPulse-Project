@@ -1,88 +1,68 @@
 # ⚖️ PolicyPulse — GDPR RAG Assistant
 
-**PolicyPulse** is a Retrieval-Augmented Generation (RAG) system designed to analyze GDPR documents using Large Language Models (LLMs). The application enables users to upload GDPR PDF files, retrieve semantically relevant information, generate context-aware answers, and verify response reliability through an integrated fact-checking mechanism.
+PolicyPulse is a Retrieval-Augmented Generation (RAG) system designed to analyze GDPR documents using Large Language Models (LLMs).
+
+The application allows users to:
+
+- Upload GDPR PDF documents
+- Retrieve semantically relevant content
+- Generate context-aware answers
+- Verify generated responses against retrieved evidence
 
 ---
 
-## 🚀 Key Features
+# 🚀 Features
 
-* 📄 Upload and process GDPR PDF documents
-* 🔍 Semantic document retrieval using Cosine Similarity
-* 🧠 Context-grounded answer generation with RAG
-* 🧩 Token-based document chunking for improved context management
-* 🚫 Duplicate chunk detection and filtering
-* ✅ Built-in response verification and fact-checking
-* 🎨 Interactive and user-friendly Gradio interface
-
----
-
-## ✅ Response Verification System
-
-To improve answer reliability, PolicyPulse includes an automated verification pipeline that evaluates generated responses against retrieved GDPR content.
-
-### VERIFIED
-
-The generated response is fully supported by the retrieved document context.
-
-### WARNING
-
-The response may contain unsupported or hallucinated information.
-
-### NOT FOUND
-
-No sufficiently relevant GDPR content was retrieved to support an answer.
+- 📄 Upload and process GDPR PDF files
+- 🔍 Semantic retrieval using Cosine Similarity
+- 🧠 Context-aware answer generation with RAG
+- 🧩 Token-based document chunking
+- 🚫 Duplicate chunk detection and filtering
+- ✅ Built-in response verification system
+- 🎨 Interactive Gradio interface
+- 📚 Source chunk visualization
+- 📊 Similarity score display
 
 ---
 
-## 🏗️ System Architecture
+# 🏗️ System Architecture
 
-1. Upload a GDPR PDF document
-2. Extract and preprocess document text
-3. Split content into token-based chunks
-4. Generate embeddings using HuggingFace models
-5. Store embeddings in ChromaDB
-6. Retrieve the most relevant chunks through semantic search
-7. Generate an answer using Groq LLM
-8. Verify the generated response against retrieved evidence
-9. Display supporting chunks and similarity scores
-
----
-
-## 🛠️ Technology Stack
-
-| Category             | Technology             |
-| -------------------- | ---------------------- |
-| Programming Language | Python                 |
-| Framework            | LangChain              |
-| Vector Database      | ChromaDB               |
-| Embeddings           | HuggingFace Embeddings |
-| LLM                  | Groq                   |
-| User Interface       | Gradio                 |
-
----
-
-## 🔐 Environment Variables
-
-For security reasons, API keys should never be hardcoded in the source code.
-
-```python
-import os
-
-GROQ_API_KEY = os.getenv("GROQ_API_KEY")
-```
-
-### Example (Google Colab)
-
-```python
-from google.colab import userdata
-import os
-
-os.environ["GROQ_API_KEY"] = userdata.get("GROQ_API_KEY")
+```text
+Upload PDF
+     ↓
+Extract Text
+     ↓
+Chunk Document
+     ↓
+Generate Embeddings
+     ↓
+Store in ChromaDB
+     ↓
+Semantic Retrieval
+     ↓
+Generate Answer using LLM
+     ↓
+Verify Response
+     ↓
+Display Results
 ```
 
 ---
 
-## 📦 Installation
+# 🛠️ Technology Stack
+
+| Category | Technology |
+|---|---|
+| Programming Language | Python |
+| Framework | LangChain |
+| Vector Database | ChromaDB |
+| Embeddings | HuggingFace |
+| LLM | Groq |
+| UI | Gradio |
+
+---
+
+# 📦 Installation
 
 Install all required dependencies:
 
@@ -101,7 +81,31 @@ gradio
 
 ---
 
-## ▶️ Running the Application
+# 🔐 Environment Variables
+
+For security reasons, never hardcode API keys inside the source code.
+
+## Linux / Mac
+
+```bash
+export GROQ_API_KEY="YOUR_API_KEY"
+```
+
+## Windows CMD
+
+```cmd
+set GROQ_API_KEY=YOUR_API_KEY
+```
+
+## Windows PowerShell
+
+```powershell
+$env:GROQ_API_KEY="YOUR_API_KEY"
+```
+
+---
+
+# ▶️ Running the Application
 
 ```bash
 python app.py
@@ -109,70 +113,119 @@ python app.py
 
 ---
 
-## 🔄 Example Workflow
+# 🧠 Retrieval Strategy
+
+The retrieval pipeline combines multiple techniques to maximize relevance and reduce noise:
+
+- Cosine Similarity Search
+- Top-K Semantic Retrieval
+- Similarity Threshold Filtering
+- Duplicate Chunk Removal
+
+---
+
+# ✅ Response Verification System
+
+PolicyPulse includes an automated verification pipeline to evaluate generated responses.
+
+## VERIFIED
+
+The response is fully supported by retrieved document chunks.
+
+## WARNING
+
+The response may contain unsupported or hallucinated information.
+
+## NOT FOUND
+
+No relevant GDPR content was retrieved.
+
+---
+
+# 📋 Output Information
+
+For every user query, the system provides:
+
+- Generated Answer
+- Verification Status
+- Retrieved Context Chunks
+- Chunk Identifiers
+- Source Page Numbers
+- Cosine Similarity Scores
+
+---
+
+# 📂 Project Structure
 
 ```text
-Upload GDPR PDF
-        ↓
-Retrieve Relevant Chunks
-        ↓
-Generate Answer
-        ↓
-Verify Response
-        ↓
-Display Results
+PolicyPulse/
+│
+├── app.py
+├── requirements.txt
+├── README.md
+├── chroma_db/
+│
+└── assets/
 ```
 
 ---
 
-## 🧠 Retrieval Strategy
+# 🖼️ Example Workflow
 
-The retrieval pipeline combines multiple techniques to maximize relevance and minimize noise:
-
-* Cosine Similarity Search
-* Top-K Semantic Retrieval
-* Similarity Threshold Filtering
-* Duplicate Chunk Removal
-
-These strategies help improve retrieval accuracy and reduce irrelevant context provided to the LLM.
-
----
-
-## 📋 Output Information
-
-For every user query, the system provides:
-
-* Generated Answer
-* Verification Status
-* Retrieved Context Chunks
-* Chunk Identifiers
-* Source Page Numbers
-* Cosine Similarity Scores
+```text
+User uploads GDPR PDF
+            ↓
+System extracts text
+            ↓
+Chunks are generated
+            ↓
+Embeddings stored in ChromaDB
+            ↓
+Relevant chunks retrieved
+            ↓
+LLM generates answer
+            ↓
+Verification system checks response
+            ↓
+Results displayed to user
+```
 
 ---
 
-## 👥 Project Team
+# 👥 Project Team
 
-* Mahmoud Khamis
-* Ahmed Amr Elmokadem
-* Rahaf Ehab
-* Rana Yasser
-* Badr Ahmed
-* Hazem Mahmoud
-
-### GitHub Profiles
-
-* Mahmoud Khamis → https://github.com/Mahmoud70-7
-* Ahmed El-Mokaddem → https://github.com/elmokade
-* Rahaf Ehab → https://github.com/RahafEA
-* Rana Yasser → https://github.com/ranayaser
-* Badr Ahmed → https://github.com/BadrWaqas
-* Hazem Mahmoud → https://github.com/Haz3m-m7hmoud
+| Name | GitHub |
+|---|---|
+| Mahmoud Khamis | https://github.com/Mahmoud70-7 |
+| Ahmed Amr Elmokadem | https://github.com/elmokademahmed35-netizen |
+| Rahaf Ehab | https://github.com/RahafEA |
+| Rana Yasser | https://github.com/ranayaser |
+| Badr Ahmed | https://github.com/BadrWaqas |
+| Hazem Mahmoud | https://github.com/Haz3m-m7hmoud |
 
 ---
 
-## 🙏 Acknowledgment
+# 🙏 Acknowledgment
 
 We would like to express our sincere gratitude to our instructor for the continuous support, valuable guidance, and constructive feedback throughout the development of this project.
 
-Their mentorship played a significant role in the successful completion of PolicyPulse.
+Their mentorship played a major role in the successful completion of PolicyPulse.
+
+---
+
+# ⭐ Future Improvements
+
+- Multi-PDF support
+- Conversation memory
+- Hybrid retrieval (BM25 + Dense Retrieval)
+- Advanced fact-checking pipeline
+- GPU optimization
+- Docker deployment
+- Authentication system
+- Citation highlighting
+
+---
+
+# 📜 License
+
+This project is developed for educational and research purposes.
