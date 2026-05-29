@@ -1,74 +1,77 @@
 # ⚖️ PolicyPulse — GDPR RAG Assistant
 
-PolicyPulse is a Retrieval-Augmented Generation (RAG) application designed to analyze GDPR documents using Large Language Models (LLMs).
-
-The system allows users to upload GDPR PDF files, retrieve semantically relevant text chunks, generate context-grounded answers, and validate response reliability using an integrated verification system.
+**PolicyPulse** is a Retrieval-Augmented Generation (RAG) system designed to analyze GDPR documents using Large Language Models (LLMs). The application enables users to upload GDPR PDF files, retrieve semantically relevant information, generate context-aware answers, and verify response reliability through an integrated fact-checking mechanism.
 
 ---
 
-# 🚀 Features
+## 🚀 Key Features
 
-- 📄 Upload GDPR PDF documents
-- 🔍 Semantic retrieval using Cosine Similarity
-- 🧠 Context-aware answer generation with RAG
-- 🧩 Token-based chunking for better context handling
-- 🚫 Duplicate chunk filtering
-- ✅ Intelligent response validation system
-- 🎨 Interactive Gradio interface
+* 📄 Upload and process GDPR PDF documents
+* 🔍 Semantic document retrieval using Cosine Similarity
+* 🧠 Context-grounded answer generation with RAG
+* 🧩 Token-based document chunking for improved context management
+* 🚫 Duplicate chunk detection and filtering
+* ✅ Built-in response verification and fact-checking
+* 🎨 Interactive and user-friendly Gradio interface
 
 ---
 
-# ✅ Verification System
+## ✅ Response Verification System
 
-The application validates generated responses using a fact-checking pipeline with 3 possible outcomes:
+To improve answer reliability, PolicyPulse includes an automated verification pipeline that evaluates generated responses against retrieved GDPR content.
 
 ### VERIFIED
-The generated answer is fully supported by the retrieved GDPR text.
+
+The generated response is fully supported by the retrieved document context.
 
 ### WARNING
-Possible hallucinated or unsupported information detected.
+
+The response may contain unsupported or hallucinated information.
 
 ### NOT FOUND
-No strongly relevant GDPR text was retrieved.
+
+No sufficiently relevant GDPR content was retrieved to support an answer.
 
 ---
 
-# 🛠️ Tech Stack
+## 🏗️ System Architecture
 
-- Python
-- LangChain
-- ChromaDB
-- HuggingFace Embeddings
-- Groq LLM
-- Gradio
-
----
-
-# ⚙️ How It Works
-
-1. Upload a GDPR PDF file
-2. Extract and split document text into chunks
-3. Generate embeddings using HuggingFace
-4. Store embeddings in ChromaDB
-5. Retrieve the most semantically similar chunks
-6. Generate answers using Groq LLM
-7. Validate the generated response using fact checking
-8. Display retrieved chunks with cosine similarity scores
+1. Upload a GDPR PDF document
+2. Extract and preprocess document text
+3. Split content into token-based chunks
+4. Generate embeddings using HuggingFace models
+5. Store embeddings in ChromaDB
+6. Retrieve the most relevant chunks through semantic search
+7. Generate an answer using Groq LLM
+8. Verify the generated response against retrieved evidence
+9. Display supporting chunks and similarity scores
 
 ---
 
-# 🔐 Environment Variables
+## 🛠️ Technology Stack
 
-For security reasons, do NOT hardcode API keys directly inside the source code.
+| Category             | Technology             |
+| -------------------- | ---------------------- |
+| Programming Language | Python                 |
+| Framework            | LangChain              |
+| Vector Database      | ChromaDB               |
+| Embeddings           | HuggingFace Embeddings |
+| LLM                  | Groq                   |
+| User Interface       | Gradio                 |
 
-Use environment variables instead:
+---
+
+## 🔐 Environment Variables
+
+For security reasons, API keys should never be hardcoded in the source code.
 
 ```python
 import os
+
 GROQ_API_KEY = os.getenv("GROQ_API_KEY")
 ```
 
-Example for Google Colab:
+### Example (Google Colab)
 
 ```python
 from google.colab import userdata
@@ -79,18 +82,26 @@ os.environ["GROQ_API_KEY"] = userdata.get("GROQ_API_KEY")
 
 ---
 
-# 📦 Installation
+## 📦 Installation
 
-
-## Install dependencies
+Install all required dependencies:
 
 ```bash
-!pip install -qU langchain langchain-groq langchain-community langchain-text-splitters langchain-huggingface chromadb pypdf sentence-transformers gradio
+pip install -qU \
+langchain \
+langchain-groq \
+langchain-community \
+langchain-text-splitters \
+langchain-huggingface \
+chromadb \
+pypdf \
+sentence-transformers \
+gradio
 ```
 
 ---
 
-# ▶️ Run the Application
+## ▶️ Running the Application
 
 ```bash
 python app.py
@@ -98,54 +109,70 @@ python app.py
 
 ---
 
-# Example Workflow
+## 🔄 Example Workflow
 
-📄 Upload GDPR PDF  
-⬇️  
-🔍 Retrieve Relevant Chunks  
-⬇️  
-💡 Generate Answer  
-⬇️  
-✅ Validate Response Reliability
-
----
-
-# 🧠 Retrieval Strategy
-
-The retriever uses:
-
-- Cosine Similarity
-- Top-k semantic search
-- Similarity threshold filtering
-- Duplicate chunk removal
-
-This helps improve retrieval quality and reduce irrelevant context.
+```text
+Upload GDPR PDF
+        ↓
+Retrieve Relevant Chunks
+        ↓
+Generate Answer
+        ↓
+Verify Response
+        ↓
+Display Results
+```
 
 ---
 
-# 📋 Output Includes
+## 🧠 Retrieval Strategy
 
-- Final generated answer
-- Verification status
-- Retrieved chunks
-- Chunk IDs
-- Page numbers
-- Cosine similarity scores
+The retrieval pipeline combines multiple techniques to maximize relevance and minimize noise:
 
----
+* Cosine Similarity Search
+* Top-K Semantic Retrieval
+* Similarity Threshold Filtering
+* Duplicate Chunk Removal
 
-# 👥 Team Members
-
-- Mahmoud Khamis (https://github.com/Mahmoud70-7)
-- Ahmed El-Mokaddem (https://github.com/elmokade)
-- Rahaf Ehab (https://github.com/RahafEA)
-- Rana Yasser (https://github.com/ranayaser)
-- Badr Ahmed (https://github.com/BadrWaqas)
-- Hazem Mahmoud (https://github.com/Haz3m-m7hmoud)
-
+These strategies help improve retrieval accuracy and reduce irrelevant context provided to the LLM.
 
 ---
 
-# 🙏 Acknowledgment
+## 📋 Output Information
 
-Special thanks to our instructor for the continuous support and guidance throughout the project.
+For every user query, the system provides:
+
+* Generated Answer
+* Verification Status
+* Retrieved Context Chunks
+* Chunk Identifiers
+* Source Page Numbers
+* Cosine Similarity Scores
+
+---
+
+## 👥 Project Team
+
+* Mahmoud Khamis
+* Ahmed Amr Elmokadem
+* Rahaf Ehab
+* Rana Yasser
+* Badr Ahmed
+* Hazem Mahmoud
+
+### GitHub Profiles
+
+* Mahmoud Khamis → https://github.com/Mahmoud70-7
+* Ahmed El-Mokaddem → https://github.com/elmokade
+* Rahaf Ehab → https://github.com/RahafEA
+* Rana Yasser → https://github.com/ranayaser
+* Badr Ahmed → https://github.com/BadrWaqas
+* Hazem Mahmoud → https://github.com/Haz3m-m7hmoud
+
+---
+
+## 🙏 Acknowledgment
+
+We would like to express our sincere gratitude to our instructor for the continuous support, valuable guidance, and constructive feedback throughout the development of this project.
+
+Their mentorship played a significant role in the successful completion of PolicyPulse.
